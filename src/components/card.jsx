@@ -1,6 +1,18 @@
 import React, { Component } from "react";
+import "bulma/css/bulma.css";
+import {
+  Card,
+  CardContent,
+  Content,
+  CardImage,
+  Image,
+  Media,
+  MediaLeft,
+  MediaContent,
+  Title
+} from "bloomer";
 
-class Card extends Component {
+class Cardusers extends Component {
   state = {
     fName: "First Name",
     lName: "Last Name",
@@ -14,9 +26,9 @@ class Card extends Component {
       const data = await response.json();
       console.log("data is=>", data);
       this.setState({
-        fName: data.results[0].name.f,
-        lName: data.results[0].name.l,
-        pic: data.results[0].picture.large,
+        fName: data.results[0].name.first,
+        lName: data.results[0].name.last,
+        picture: data.results[0].picture.large,
         email: data.results[0].email,
         phone: data.results[0].phone
       });
@@ -26,23 +38,34 @@ class Card extends Component {
     }
   }
   render() {
-    const { fName } = this.state;
-    const { pic } = this.state;
-    const { lName } = this.state;
-    const { email } = this.state;
-    const { phone } = this.state;
     return (
-      <div>
-        <div>
-          <img src={pic} alt="pic"></img>
-          <p>{fName}</p>
-          <p>{lName}</p>
-          <p>{email}</p>
-          <p>{phone}</p>
-        </div>
-      </div>
+      <Card className="cardStyle">
+        <CardImage isSize={2}>
+          <Image src={this.state.picture} />
+        </CardImage>
+        <CardContent>
+          <Media>
+            <MediaLeft isDisplay="flex" isFlex="center">
+              <Image isSize="48x48" src={this.state.picture} />
+            </MediaLeft>
+            <MediaContent>
+              <Title isSize={4}>
+                {this.state.fname} {this.state.lname}
+              </Title>
+            </MediaContent>
+          </Media>
+          <Content hasTextAlign="left">
+            <p>
+              <b>Email:</b> {this.state.email}
+            </p>
+            <p>
+              <b>Phone:</b> {this.state.phone}
+            </p>
+          </Content>
+        </CardContent>
+      </Card>
     );
   }
 }
 
-export default Card;
+export default Cardusers;
